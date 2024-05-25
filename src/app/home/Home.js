@@ -8,7 +8,7 @@ import ClassBanner from "./ClassBanner";
 
 import { sampleSize } from "lodash";
 
-export default function Home() {
+export default function Home({ isLogin }) {
   const initialTheme = localStorage?.getItem("theme") || "light";
   const mainBanners = [
     {
@@ -73,7 +73,7 @@ export default function Home() {
       url: "/class/class8.png",
       link: "/",
       is_publish: true,
-    }
+    },
   ];
   return (
     <div>
@@ -81,11 +81,31 @@ export default function Home() {
       <MainBanner mainBanners={mainBanners} />
 
       <div className="flex flex-col gap-2">
-        <div>
-          <h1 className="mt-2 text-xl font-bold">스몰빅 오리지널 클래스</h1>
+        {isLogin ? (
+          <>
+            <div>
+              <h1 className="mt-2 text-xl font-bold">
+                <span className="text-[#00a2d0]">윤태진</span>님 추천 클래스
+              </h1>
 
-          <ClassBanner classBanners={sampleSize(classBanners, 3)} />
-        </div>
+              <ClassBanner classBanners={sampleSize(classBanners, 3)} />
+            </div>
+
+            <div>
+              <h1 className="mt-2 text-xl font-bold">
+                <span className="text-[#00a2d0]">윤태진</span>님 시청 클래스
+              </h1>
+
+              <ClassBanner classBanners={sampleSize(classBanners, 3)} />
+            </div>
+          </>
+        ) : (
+          <div>
+            <h1 className="mt-2 text-xl font-bold">스몰빅 오리지널 클래스</h1>
+
+            <ClassBanner classBanners={sampleSize(classBanners, 3)} />
+          </div>
+        )}
 
         <div>
           <h1 className="text-xl font-bold">
