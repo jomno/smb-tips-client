@@ -1,5 +1,7 @@
 import localFont from "next/font/local";
+import { ThemeModeScript } from "flowbite-react";
 import "./globals.css";
+
 
 export const metadata = {
   title: "스몰빅클래스",
@@ -23,6 +25,9 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
+      <head>
+        <ThemeModeScript />
+      </head>
       <body>
         <div className="layout font-pretendard">{children}</div>
       </body>
