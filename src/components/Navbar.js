@@ -3,8 +3,10 @@
 import MenuIcon from "@public/icons/menu.svg"
 import { Dropdown } from "flowbite-react";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Component() {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -24,9 +26,9 @@ export default function Component() {
   }, [isMenuOpen]);
 
   return (
-    <nav className="border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+    <nav className="sticky top-0 z-50 bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl py-2 mx-auto">
-        <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
+        <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img
             src="/icons/nav_logo.png"
             className="max-w-[189px]"
@@ -36,7 +38,7 @@ export default function Component() {
         <Dropdown
           label="Dropdown"
           renderTrigger={() => (
-            <div>
+            <div className="cursor-pointer">
               <MenuIcon />
             </div>
           )}
@@ -47,8 +49,19 @@ export default function Component() {
           <Dropdown.Item onClick={() => alert("구독하기")}>
             구독하기
           </Dropdown.Item>
-          <Dropdown.Item onClick={() => alert("마이페이지")}>
-            마이페이지
+          <Dropdown.Item
+            onClick={() => {
+              router.push("/mypage/parents");
+            }}
+          >
+            마이페이지 - 부모
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => {
+              router.push("/mypage/children");
+            }}
+          >
+            마이페이지 - 아이
           </Dropdown.Item>
         </Dropdown>
       </div>

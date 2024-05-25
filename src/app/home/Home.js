@@ -80,7 +80,7 @@ export default function Home({ isLogin }) {
       <Navbar />
       <MainBanner mainBanners={mainBanners} />
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-4">
         {isLogin ? (
           <>
             <div>
