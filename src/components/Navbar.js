@@ -51,6 +51,20 @@ export default function Component() {
           </Dropdown.Item>
           <Dropdown.Item
             onClick={() => {
+              router.push("/survey/parents");
+            }}
+          >
+            설문조사 - 부모
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => {
+              router.push("/survey/children");
+            }}
+          >
+            설문조사 - 아이
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => {
               router.push("/mypage/parents");
             }}
           >
