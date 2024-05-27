@@ -111,7 +111,7 @@ export default function Content({ categories }) {
               <div className="block mb-1">
                 <Label
                   htmlFor={key}
-                  value={value.label}
+                  value={`${value.label} (${value.options.join(", ")})`}
                   className="text-gray-500"
                 />
               </div>
@@ -141,7 +141,7 @@ export default function Content({ categories }) {
               <div className="block mb-1">
                 <Label
                   htmlFor={key}
-                  value={value.label}
+                  value={`${value.label} (${value.options.join(", ")})`}
                   className="text-gray-500"
                 />
               </div>
@@ -171,7 +171,7 @@ export default function Content({ categories }) {
               <div className="block mb-1">
                 <Label
                   htmlFor={key}
-                  value={value.label}
+                  value={`${value.label} (${value.options.join(", ")})`}
                   className="text-gray-500"
                 />
               </div>
