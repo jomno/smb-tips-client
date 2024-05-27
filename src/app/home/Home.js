@@ -84,7 +84,7 @@ export default function Home({ isLogin }) {
         {isLogin ? (
           <>
             <div>
-              <h1 className="mt-2 text-xl font-bold">
+              <h1 className="mt-4 text-xl font-bold">
                 <span className="text-[#00a2d0]">윤태진</span>님 추천 클래스
               </h1>
 
@@ -92,7 +92,7 @@ export default function Home({ isLogin }) {
             </div>
 
             <div>
-              <h1 className="mt-2 text-xl font-bold">
+              <h1 className="text-xl font-bold">
                 <span className="text-[#00a2d0]">윤태진</span>님 시청 클래스
               </h1>
 
@@ -101,7 +101,7 @@ export default function Home({ isLogin }) {
           </>
         ) : (
           <div>
-            <h1 className="mt-2 text-xl font-bold">스몰빅 오리지널 클래스</h1>
+            <h1 className="mt-4 text-xl font-bold">스몰빅 오리지널 클래스</h1>
 
             <ClassBanner classBanners={sampleSize(classBanners, 3)} />
           </div>
