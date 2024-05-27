@@ -7,23 +7,10 @@ import { HiInformationCircle } from "react-icons/hi";
 import { useFormik } from "formik";
 
 export default function Content({ categories }) {
-
   const formik = useFormik({
     initialValues: {
-      first_basic: "",
-      first_study: "",
-      first_science: "",
-      first_architecture: "",
-      first_humanities: "",
-      first_society: "",
-      first_art: "",
-      second_basic: "",
-      second_study: "",
-      second_science: "",
-      second_architecture: "",
-      second_humanities: "",
-      second_society: "",
-      second_art: "",
+      first_question: "",
+      second_question: "",
       third_basic: "",
       third_study: "",
       third_science: "",
@@ -70,33 +57,22 @@ export default function Content({ categories }) {
             관심있는 항목에 대해 체크해주세요.
           </h3>
 
-          {Object.entries(categories).map(([key, value], index) => (
-            <div className="mt-1" key={index}>
-              <div className="block mb-1">
-                <Label
-                  htmlFor={key}
-                  value={value.label}
-                  className="text-gray-500"
-                />
-              </div>
-
-              <Select
-                id={key}
-                name={`first_${key}`}
-                onChange={formik.handleChange}
-                defaultValue={""}
-              >
-                <option disabled value="">
-                  선택
-                </option>
-                {value.options.map((option, index) => (
-                  <option key={index} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </Select>
-            </div>
-          ))}
+          <Select
+            id="first_question"
+            name="first_question"
+            className="mt-2"
+            defaultValue={""}
+            onChange={formik.handleChange}
+          >
+            <option disabled value="">
+              선택
+            </option>
+            {Object.entries(categories).map(([key, value], index) => (
+              <option key={index} value={key}>
+                {value.label} ({value.options.join(", ")})
+              </option>
+            ))}
+          </Select>
         </div>
 
         <div className="mt-4">
@@ -105,6 +81,31 @@ export default function Content({ categories }) {
             하는 항목을 체크해주세요.
           </h3>
 
+          <Select
+            id="second_question"
+            name="second_question"
+            className="mt-2"
+            defaultValue={""}
+            onChange={formik.handleChange}
+          >
+            <option disabled value="">
+              선택
+            </option>
+            {Object.entries(categories).map(([key, value], index) => (
+              <option key={index} value={key}>
+                {value.label} ({value.options.join(", ")})
+              </option>
+            ))}
+          </Select>
+        </div>
+
+        <div className="mt-4">
+          <h3 className="text-base">
+            <span className="font-bold">3. </span>현재 자녀의 각 아래 항목에
+            대한 가장
+            <span className="font-bold"> 흥미</span>가 높은 영역을 체크해주세요.
+          </h3>
+
           {Object.entries(categories).map(([key, value], index) => (
             <div className="mt-1" key={index}>
               <div className="block mb-1">
@@ -115,11 +116,7 @@ export default function Content({ categories }) {
                 />
               </div>
 
-              <Select
-                id={key}
-                name={`second_${key}`}
-                defaultValue={""}
-              >
+              <Select id={key} name={`third_${key}`} defaultValue={""}>
                 <option disabled value="">
                   선택
                 </option>
@@ -135,78 +132,62 @@ export default function Content({ categories }) {
 
         <div className="mt-4">
           <h3 className="text-base">
-            <span className="font-bold">3. </span>현재 자녀의 아래 항목에 대한
-            <span className="font-bold"> 흥미도</span>를 체크해주세요.
+            <span className="font-bold">4. </span>3번 문항에 선택한 항목에 대해
+            현재 자녀의 아래 항목에 대한{" "}
+            <span className="font-bold">성취도</span>를 체크해주세요.
           </h3>
-
           {Object.entries(categories).map(([key, value], index) => (
             <div className="mt-1" key={index}>
-              <fieldset className="flex flex-col gap-2">
-                <legend className="mb-1 text-sm text-gray-500">
-                  {value.label} - {formik.values[`first_${key}`]}
-                </legend>
+              <div className="block mb-1">
+                <Label
+                  htmlFor={key}
+                  value={value.label}
+                  className="text-gray-500"
+                />
+              </div>
 
-                <div className="flex items-center gap-2">
-                  <Radio
-                    id="united-state"
-                    name={``}
-                    value="USA"
-                    defaultChecked
-                  />
-                  <Label htmlFor="united-state">아주 좋아하지 않음</Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Radio id="germany" name="countries" value="Germany" />
-                  <Label htmlFor="germany">좋아하지 않음</Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Radio id="spain" name="countries" value="Spain" />
-                  <Label htmlFor="spain">Spain</Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Radio id="uk" name="countries" value="United Kingdom" />
-                  <Label htmlFor="uk">United Kingdom</Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Radio id="china" name="countries" value="China" disabled />
-                  <Label htmlFor="china" disabled>
-                    China (disabled)
-                  </Label>
-                </div>
-              </fieldset>
-
-              {/* <Select
-                id={key}
-                name={`third_${key}`}
-                defaultValue={selectedCategories[key]}
-              >
+              <Select id={key} name={`fifth_${key}`} defaultValue={""}>
                 <option disabled value="">
                   선택
                 </option>
-                {value.options.map((option, index) => (
-                  <option key={index} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </Select> */}
+                <option value="1">아주 낮음</option>
+                <option value="2">낮음</option>
+                <option value="3">보통</option>
+                <option value="4">높음</option>
+                <option value="5">아주 높음</option>
+              </Select>
             </div>
           ))}
         </div>
 
         <div className="mt-4">
           <h3 className="text-base">
-            <span className="font-bold">4. </span>1번 문항에 선택한 항목에 대해
-            현재 자녀의 아래 항목에 대한{" "}
-            <span className="font-bold">성취도</span>를 체크해주세요.
-          </h3>
-        </div>
-
-        <div className="mt-4">
-          <h3 className="text-base">
-            <span className="font-bold">5. </span>1번 문항에 선택한 항목에 대해
+            <span className="font-bold">5. </span>3번 문항에 선택한 항목에 대해
             현재 자녀가 아래 항목에 대해 느끼는{" "}
             <span className="font-bold">자신감</span>의 정도를 체크해주세요.
           </h3>
+          {Object.entries(categories).map(([key, value], index) => (
+            <div className="mt-1" key={index}>
+              <div className="block mb-1">
+                <Label
+                  htmlFor={key}
+                  value={value.label}
+                  className="text-gray-500"
+                />
+              </div>
+
+              <Select id={key} name={`fifth_${key}`} defaultValue={""}>
+                <option disabled value="">
+                  선택
+                </option>
+                <option value="1">아주 낮음</option>
+                <option value="2">낮음</option>
+                <option value="3">보통</option>
+                <option value="4">높음</option>
+                <option value="5">아주 높음</option>
+              </Select>
+            </div>
+          ))}
         </div>
 
         <div className="sticky bottom-0 z-0 py-4 bg-white">
