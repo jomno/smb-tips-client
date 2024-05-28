@@ -28,7 +28,7 @@ export default function Content({
   data02,
   data03,
 }) {
-  const initialTheme = localStorage?.getItem("theme") || "light";
+  // const initialTheme = localStorage?.getItem("theme") || "light";
 
   const data04 = [
     {
