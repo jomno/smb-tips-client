@@ -1,3 +1,5 @@
+import Content from "./Content";
+
 export default async function Page({ searchParams }) {
-  return <div>/mypage/children</div>;
+  return <Content />;
 }
