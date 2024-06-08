@@ -67,3 +67,11 @@ export const updateCurrentUser = (data) => {
 export const updatePassword = (data) => {
   return api.patch(`/current_user/change_password`, data);
 };
+
+export const createChildSurvey = (data) => {
+  return api.post(`/child_surveys`, data);
+}
+
+export const createParentsSurvey = (data) => {
+  return api.post(`/parents_surveys`, data);
+}

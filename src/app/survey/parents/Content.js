@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { DefaultSelectInput } from "@/components/inputs";
 import { Alert, Label, Select, Button, Radio } from "flowbite-react";
-import { HiInformationCircle } from "react-icons/hi";
 import { useFormik } from "formik";
+import * as Yup from "yup";
+import Swal from "sweetalert2";
+
+import { createParentsSurvey } from "@/utils/api";
 
 export default function Content({ categories }) {
   const formik = useFormik({
@@ -33,8 +34,48 @@ export default function Content({ categories }) {
       fifth_society: "",
       fifth_art: "",
     },
+    validationSchema: Yup.object({
+      first_question: Yup.string().required("필수 항목입니다."),
+      second_question: Yup.string().required("필수 항목입니다."),
+      third_basic: Yup.string().required("필수 항목입니다."),
+      third_study: Yup.string().required("필수 항목입니다."),
+      third_science: Yup.string().required("필수 항목입니다."),
+      third_architecture: Yup.string().required("필수 항목입니다."),
+      third_humanities: Yup.string().required("필수 항목입니다."),
+      third_society: Yup.string().required("필수 항목입니다."),
+      third_art: Yup.string().required("필수 항목입니다."),
+      fourth_basic: Yup.string().required("필수 항목입니다."),
+      fourth_study: Yup.string().required("필수 항목입니다."),
+      fourth_science: Yup.string().required("필수 항목입니다."),
+      fourth_architecture: Yup.string().required("필수 항목입니다."),
+      fourth_humanities: Yup.string().required("필수 항목입니다."),
+      fourth_society: Yup.string().required("필수 항목입니다."),
+      fourth_art: Yup.string().required("필수 항목입니다."),
+      fifth_basic: Yup.string().required("필수 항목입니다."),
+      fifth_study: Yup.string().required("필수 항목입니다."),
+      fifth_science: Yup.string().required("필수 항목입니다."),
+      fifth_architecture: Yup.string().required("필수 항목입니다."),
+      fifth_humanities: Yup.string().required("필수 항목입니다."),
+      fifth_society: Yup.string().required("필수 항목입니다."),
+      fifth_art: Yup.string().required("필수 항목입니다."),
+    }),
     onSubmit: (values) => {
-      console.log(values);
+      createParentsSurvey(values)
+        .then((res) => {
+          Swal.fire({
+            title: "설문이 제출되었습니다.",
+            icon: "success",
+          }).then(() => {
+            window.location.href = "/";
+          });
+        })
+        .catch((error) => {
+          Swal.fire({
+            title: "설문 제출에 실패했습니다.",
+            text: error.response.data.message,
+            icon: "error",
+          });
+        });
     },
   });
 
@@ -73,6 +114,12 @@ export default function Content({ categories }) {
               </option>
             ))}
           </Select>
+
+          {formik.touched[`first_question`] && formik.errors.first_question && (
+            <p className="mt-1 text-sm text-red-500">
+              {formik.errors.first_question}
+            </p>
+          )}
         </div>
 
         <div className="mt-4">
@@ -97,6 +144,12 @@ export default function Content({ categories }) {
               </option>
             ))}
           </Select>
+          {formik.touched[`second_question`] &&
+            formik.errors.second_question && (
+              <p className="mt-1 text-sm text-red-500">
+                {formik.errors.second_question}
+              </p>
+            )}
         </div>
 
         <div className="mt-4">
@@ -116,16 +169,28 @@ export default function Content({ categories }) {
                 />
               </div>
 
-              <Select id={key} name={`third_${key}`} defaultValue={""}>
+              <Select
+                id={key}
+                name={`third_${key}`}
+                defaultValue={""}
+                onChange={formik.handleChange}
+              >
                 <option disabled value="">
                   선택
                 </option>
                 {value.options.map((option, index) => (
-                  <option key={index} value={option}>
+                  <option key={index} value={index}>
                     {option}
                   </option>
                 ))}
               </Select>
+
+              {formik.touched[`third_${key}`] &&
+                formik.errors[`third_${key}`] && (
+                  <p className="mt-1 text-sm text-red-500">
+                    {formik.errors[`third_${key}`]}
+                  </p>
+                )}
             </div>
           ))}
         </div>
@@ -146,7 +211,12 @@ export default function Content({ categories }) {
                 />
               </div>
 
-              <Select id={key} name={`fifth_${key}`} defaultValue={""}>
+              <Select
+                id={key}
+                name={`fourth_${key}`}
+                defaultValue={""}
+                onChange={formik.handleChange}
+              >
                 <option disabled value="">
                   선택
                 </option>
@@ -156,6 +226,13 @@ export default function Content({ categories }) {
                 <option value="4">높음</option>
                 <option value="5">아주 높음</option>
               </Select>
+
+              {formik.touched[`fourth_${key}`] &&
+                formik.errors[`fourth_${key}`] && (
+                  <p className="mt-1 text-sm text-red-500">
+                    {formik.errors[`fourth_${key}`]}
+                  </p>
+                )}
             </div>
           ))}
         </div>
@@ -176,7 +253,12 @@ export default function Content({ categories }) {
                 />
               </div>
 
-              <Select id={key} name={`fifth_${key}`} defaultValue={""}>
+              <Select
+                id={key}
+                name={`fifth_${key}`}
+                defaultValue={""}
+                onChange={formik.handleChange}
+              >
                 <option disabled value="">
                   선택
                 </option>
@@ -186,6 +268,13 @@ export default function Content({ categories }) {
                 <option value="4">높음</option>
                 <option value="5">아주 높음</option>
               </Select>
+
+              {formik.touched[`fifth_${key}`] &&
+                formik.errors[`fifth_${key}`] && (
+                  <p className="mt-1 text-sm text-red-500">
+                    {formik.errors[`fifth_${key}`]}
+                  </p>
+                )}
             </div>
           ))}
         </div>

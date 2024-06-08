@@ -42,7 +42,14 @@ const Form = ({ role }) => {
       register(formData)
         .then((res) => {
           if (res.status === 200) {
-            router.push("/?signup=true");
+            Swal.fire({
+              icon: "success",
+              title: "회원가입이 완료되었습니다.",
+              text: "설문조사 페이지로 이동합니다.",
+              showConfirmButton: true,
+            }).then(() => {
+              router.push(`/survey/${role}`);
+            });
           }
         })
         .catch((err) => {

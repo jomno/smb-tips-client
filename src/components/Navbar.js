@@ -80,7 +80,7 @@ export default function Component({ currentUser }) {
           </Dropdown.Item>
           <Dropdown.Item
             onClick={() => {
-              router.push("/survey/children");
+              router.push("/survey/child");
             }}
           >
             설문조사 - 아이
