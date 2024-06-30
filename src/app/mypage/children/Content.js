@@ -6,7 +6,7 @@ import { AiFillFire } from "react-icons/ai";
 import { PiVideoFill } from "react-icons/pi";
 import { MdCategory } from "react-icons/md";
 
-import ClassBanner from "@/app/home/ClassBanner";
+import ClassBanner from "@/components/ClassBanner";
 import { sampleSize } from "lodash";
 
 export default function Content() {

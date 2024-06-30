@@ -3,8 +3,8 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
 
-import MainBanner from "./MainBanner";
-import ClassBanner from "./ClassBanner";
+import MainBanner from "@/components/MainBanner";
+import ClassBanner from "@/components/ClassBanner";
 
 import { sampleSize } from "lodash";
 
