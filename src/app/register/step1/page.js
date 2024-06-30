@@ -1,11 +1,9 @@
 "use client";
-import { useEffect } from "react";
-import Link from "next/link";
-import { useSearchParams, useRouter } from "next/navigation";
+
+import { useRouter } from "next/navigation";
 
 const RegisterPage = () => {
   const router = useRouter();
-  const params = useSearchParams();
 
   return (
     <>
