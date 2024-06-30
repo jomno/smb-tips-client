@@ -1,109 +1,205 @@
 "use client";
 
 import React from "react";
-import { FaFire } from "react-icons/fa6";
-import { AiFillFire } from "react-icons/ai";
-import { PiVideoFill } from "react-icons/pi";
-import { MdCategory } from "react-icons/md";
 
 import ClassBanner from "@/components/ClassBanner";
 import { sampleSize } from "lodash";
 
-export default function Content() {
-  const classBanners = [
+import {
+  Radar,
+  RadarChart,
+  PolarGrid,
+  Legend,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+} from "recharts";
+
+import { Avatar } from "flowbite-react";
+
+import { FiEdit3 } from "react-icons/fi";
+
+export default function Content({
+  recommendClass,
+  watchingClass,
+  data01,
+  data02,
+  data03,
+}) {
+  // const initialTheme = localStorage?.getItem("theme") || "light";
+
+  const data04 = [
     {
-      id: 1,
-      url: "/class/class1.png",
-      link: "/",
-      is_publish: true,
+      subject: "Math",
+      A: 120,
+      B: 110,
+      fullMark: 150,
     },
     {
-      id: 2,
-      url: "/class/class2.png",
-      link: "/",
-      is_publish: true,
+      subject: "Chinese",
+      A: 98,
+      B: 130,
+      fullMark: 150,
     },
     {
-      id: 3,
-      url: "/class/class3.png",
-      link: "/",
-      is_publish: true,
+      subject: "English",
+      A: 86,
+      B: 130,
+      fullMark: 150,
     },
     {
-      id: 4,
-      url: "/class/class4.png",
-      link: "/",
-      is_publish: true,
+      subject: "Geography",
+      A: 99,
+      B: 100,
+      fullMark: 150,
     },
     {
-      id: 5,
-      url: "/class/class5.png",
-      link: "/",
-      is_publish: true,
+      subject: "Physics",
+      A: 85,
+      B: 90,
+      fullMark: 150,
     },
     {
-      id: 6,
-      url: "/class/class6.png",
-      link: "/",
-      is_publish: true,
-    },
-    {
-      id: 7,
-      url: "/class/class7.png",
-      link: "/",
-      is_publish: true,
-    },
-    {
-      id: 8,
-      url: "/class/class8.png",
-      link: "/",
-      is_publish: true,
+      subject: "History",
+      A: 65,
+      B: 85,
+      fullMark: 150,
     },
   ];
+
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    index,
+    name,
+  }) => {
+    const RADIAN = Math.PI / 180;
+
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor="middle"
+        dominantBaseline="central"
+        style={{ fontSize: "10px", fontWeight: "bold" }}
+      >
+        {name}
+      </text>
+    );
+  };
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col items-center py-4">
-        <div className="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <div className="flex flex-col items-center">
-            <p className="text-[55px] my-2">👍</p>
-            <h5 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">
-              나이스 잡, 솜이맘 님!
-            </h5>
+      <div>
+        <div className="w-full bg-[#232339] flex flex-row py-2 px-4 rounded">
+          <Avatar rounded />
 
-            <span class="mt-1 bg-gray-100 text-black text-xs font-bold inline-flex items-center px-2.5 py-0.5 rounded-full me-2 dark:bg-gray-700 dark:text-gray-400 border border-gray-500 ">
-              <FaFire class="text-red-500 me-1" />
-              27일 연속 공부 중
-            </span>
-            <div class="mt-4 mb-8 grid grid-cols-3 w-64">
-              <div className="flex flex-col items-center">
-                <PiVideoFill className="text-4xl text-purple-500" />
-                <p className="font-bold">10</p>
-              </div>
-
-              <div className="flex flex-col items-center">
-                <AiFillFire className="text-4xl text-red-500" />
-                <p className="font-bold">27</p>
-              </div>
-
-              <div className="flex flex-col items-center">
-                <MdCategory className="text-4xl text-green-500" />
-                <p className="font-bold">2</p>
-              </div>
-            </div>
+          <div className="flex flex-col ml-4">
+            <h1 className="text-lg font-bold text-white">승우맘</h1>
+            <p className="text-sm text-gray-400">test@test.com</p>
           </div>
+
+          <div className="flex flex-row ml-auto">
+            <button className="text-white">
+              <FiEdit3 />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h1 className="text-xl font-bold">
+          {new Date().getMonth() + 1}월{" "}
+          <span className="text-blue-700">승우</span>의 영역별 선호도 분포
+        </h1>
+        <div className="flex flex-col items-center justify-center">
+          <PieChart width={600} height={400}>
+            <Pie
+              data={data01}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={80}
+              label={renderCustomizedLabel}
+              labelLine={false}
+            >
+              {data01.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.color}>
+                  {entry.name}
+                </Cell>
+              ))}
+            </Pie>
+            <Pie
+              data={data02}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              innerRadius={75}
+              outerRadius={150}
+              label={(entry) => entry.name}
+            >
+              {data02.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.color} />
+              ))}
+            </Pie>
+          </PieChart>
         </div>
       </div>
 
       <div>
+        <h1 className="text-xl font-bold">
+          전월 대비 <span className="text-blue-700">승우</span>의 선호도 변화
+        </h1>
+        <div className="flex flex-col items-center justify-center">
+          <RadarChart
+            width={600}
+            height={500}
+            cx="50%"
+            cy="50%"
+            outerRadius="80%"
+            data={data03}
+          >
+            <PolarGrid />
+            <PolarAngleAxis dataKey="subject" />
+            <PolarRadiusAxis angle={30} domain={[0, 100]} />
+            <Radar
+              name={`${new Date().getMonth()}월`}
+              dataKey="A"
+              stroke="#8884d8"
+              fill="#8884d8"
+              fillOpacity={0.6}
+            />
+            <Radar
+              name={`${new Date().getMonth() + 1}월`}
+              dataKey="B"
+              stroke="#82ca9d"
+              fill="#82ca9d"
+              fillOpacity={0.6}
+            />
+            <Legend />
+          </RadarChart>
+        </div>
+      </div>
+      <div>
         <h1 className="text-xl font-bold">추천 클래스</h1>
 
-        <ClassBanner classBanners={sampleSize(classBanners, 2)} />
+        <ClassBanner classBanners={recommendClass} />
       </div>
-
       <div>
         <h1 className="text-xl font-bold">수강 중인 클래스</h1>
 
-        <ClassBanner classBanners={sampleSize(classBanners, 2)} />
+        <ClassBanner classBanners={watchingClass} />
       </div>
     </div>
   );

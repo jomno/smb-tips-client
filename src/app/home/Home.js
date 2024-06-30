@@ -9,7 +9,7 @@ import ClassBanner from "@/components/ClassBanner";
 import { sampleSize } from "lodash";
 
 export default function Home({ isLogin }) {
-  const initialTheme = localStorage?.getItem("theme") || "light";
+  // const initialTheme = localStorage?.getItem("theme") || "light";
   const mainBanners = [
     {
       id: 1,
