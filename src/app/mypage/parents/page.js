@@ -182,8 +182,8 @@ export default async function Page({ searchParams }) {
   return (
     <Content
       user={user}
-      recommendclassName={sampleSize(classBanners, 2)}
-      watchingclassName={sampleSize(classBanners, 2)}
+      recommendclass={sampleSize(classBanners, 2)}
+      watchingclass={sampleSize(classBanners, 2)}
       data01={data01}
       data02={data02}
       data03={data03}
