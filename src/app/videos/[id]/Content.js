@@ -5,7 +5,7 @@ import ClassBanner from "@/components/ClassBanner";
 import { sampleSize } from "lodash";
 
 export default function Content({ classBanners, video }) {
-  const initialTheme = localStorage?.getItem("theme") || "light";
+  // const initialTheme = localStorage?.getItem("theme") || "light";
   return (
     <div className="flex flex-col">
       <h1 className="text-2xl font-bold">{video.title}</h1>

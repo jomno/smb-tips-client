@@ -179,11 +179,12 @@ export default async function Page({ searchParams }) {
     },
   ];
 
+
   return (
     <Content
       user={user}
-      recommendclass={sampleSize(classBanners, 2)}
-      watchingclass={sampleSize(classBanners, 2)}
+      recommendClass={sampleSize(classBanners, 2)}
+      watchingClass={sampleSize(classBanners, 2)}
       data01={data01}
       data02={data02}
       data03={data03}

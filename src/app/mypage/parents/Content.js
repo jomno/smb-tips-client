@@ -3,8 +3,6 @@
 import React from "react";
 
 import ClassBanner from "@/components/ClassBanner";
-import { sampleSize } from "lodash";
-
 import {
   Radar,
   RadarChart,
@@ -15,7 +13,6 @@ import {
   PieChart,
   Pie,
   Cell,
-  ResponsiveContainer,
 } from "recharts";
 
 import { Avatar } from "flowbite-react";
@@ -28,6 +25,7 @@ export default function Content({
   data01,
   data02,
   data03,
+  user,
 }) {
   // const initialTheme = localStorage?.getItem("theme") || "light";
 
