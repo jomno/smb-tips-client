@@ -34,7 +34,10 @@ export default function Content({}) {
         </fieldset>
 
         <div className="flex justify-center mt-16">
-          <Button type="submit" className="w-full">
+          <Button className="w-full" onClick={() => {
+            alert("구독이 완료되었습니다.")
+            location.href = "/";
+          }}>
             구독하기
           </Button>
         </div>
