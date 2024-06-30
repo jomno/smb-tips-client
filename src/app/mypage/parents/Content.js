@@ -105,8 +105,8 @@ export default function Content({
           <Avatar rounded />
 
           <div className="flex flex-col ml-4">
-            <h1 className="text-lg font-bold text-white">승우맘</h1>
-            <p className="text-sm text-gray-400">test@test.com</p>
+            <h1 className="text-lg font-bold text-white">{user.name}</h1>
+            <p className="text-sm text-gray-400">{user.email}</p>
           </div>
 
           <div className="flex flex-row ml-auto">
