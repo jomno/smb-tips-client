@@ -1,57 +1,98 @@
 import Content from "./Content";
 import { sampleSize } from "lodash";
 
+import { fetcher } from "@/utils/fetcher";
+import { cookies } from "next/headers";
+
+async function getCurrentUser() {
+  const res = await fetcher("/current_user", cookies());
+
+  if (!res.ok) {
+    return null;
+  }
+  return res.json();
+}
+
+const getVideos = async (type = "all") => {
+  const res = await fetcher(`/videos?type=${type}`, cookies());
+
+  if (!res.ok) {
+    return null;
+  }
+
+  return res.json();
+};
+
 export default async function Page({ searchParams }) {
-  const classBanners = [
-    {
-      id: 1,
-      url: "/class/class1.png",
-      link: "/",
+  const user = await getCurrentUser();
+  let classBanners = [];
+
+  if (user.role !== "parents") {
+    redirect("/?msg=role_parent");
+    return null;
+  }
+
+  const videos = await getVideos("parents");
+
+  if (videos === null || videos?.length < 6) {
+    classBanners = [
+      {
+        id: 1,
+        url: "/class/class1.png",
+        link: "/",
+        is_publish: true,
+      },
+      {
+        id: 2,
+        url: "/class/class2.png",
+        link: "/",
+        is_publish: true,
+      },
+      {
+        id: 3,
+        url: "/class/class3.png",
+        link: "/",
+        is_publish: true,
+      },
+      {
+        id: 4,
+        url: "/class/class4.png",
+        link: "/",
+        is_publish: true,
+      },
+      {
+        id: 5,
+        url: "/class/class5.png",
+        link: "/",
+        is_publish: true,
+      },
+      {
+        id: 6,
+        url: "/class/class6.png",
+        link: "/",
+        is_publish: true,
+      },
+      {
+        id: 7,
+        url: "/class/class7.png",
+        link: "/",
+        is_publish: true,
+      },
+      {
+        id: 8,
+        url: "/class/class8.png",
+        link: "/",
+        is_publish: true,
+      },
+    ];
+  } else {
+    classBanners = videos.map((video) => ({
+      id: video.id,
+      url: video.thumbnail_url,
+      link: `/videos/${video.id}`,
       is_publish: true,
-    },
-    {
-      id: 2,
-      url: "/class/class2.png",
-      link: "/",
-      is_publish: true,
-    },
-    {
-      id: 3,
-      url: "/class/class3.png",
-      link: "/",
-      is_publish: true,
-    },
-    {
-      id: 4,
-      url: "/class/class4.png",
-      link: "/",
-      is_publish: true,
-    },
-    {
-      id: 5,
-      url: "/class/class5.png",
-      link: "/",
-      is_publish: true,
-    },
-    {
-      id: 6,
-      url: "/class/class6.png",
-      link: "/",
-      is_publish: true,
-    },
-    {
-      id: 7,
-      url: "/class/class7.png",
-      link: "/",
-      is_publish: true,
-    },
-    {
-      id: 8,
-      url: "/class/class8.png",
-      link: "/",
-      is_publish: true,
-    },
-  ];
+    }));
+  }
 
   const data01 = [
     { name: "기초 영역", value: 70, color: "#0088FE" },
@@ -93,50 +134,50 @@ export default async function Page({ searchParams }) {
     { name: "메이커활동", value: 20, color: "#97AAE0" },
   ];
 
-    const data03 = [
-      {
-        subject: "기초 영역",
-        A: 20,
-        B: 70,
-        fullMark: 100,
-      },
-      {
-        subject: "학습 역량",
-        A: 100,
-        B: 100,
-        fullMark: 100,
-      },
-      {
-        subject: "과학",
-        A: 20,
-        B: 50,
-        fullMark: 100,
-      },
-      {
-        subject: "기술/공학",
-        A: 99,
-        B: 100,
-        fullMark: 100,
-      },
-      {
-        subject: "인문",
-        A: 85,
-        B: 90,
-        fullMark: 100,
-      },
-      {
-        subject: "사회",
-        A: 65,
-        B: 80,
-        fullMark: 100,
-      },
-      {
-        subject: "예체능/기타",
-        A: 65,
-        B: 77,
-        fullMark: 100,
-      },
-    ];
+  const data03 = [
+    {
+      subject: "기초 영역",
+      A: 20,
+      B: 70,
+      fullMark: 100,
+    },
+    {
+      subject: "학습 역량",
+      A: 100,
+      B: 100,
+      fullMark: 100,
+    },
+    {
+      subject: "과학",
+      A: 20,
+      B: 50,
+      fullMark: 100,
+    },
+    {
+      subject: "기술/공학",
+      A: 99,
+      B: 100,
+      fullMark: 100,
+    },
+    {
+      subject: "인문",
+      A: 85,
+      B: 90,
+      fullMark: 100,
+    },
+    {
+      subject: "사회",
+      A: 65,
+      B: 80,
+      fullMark: 100,
+    },
+    {
+      subject: "예체능/기타",
+      A: 65,
+      B: 77,
+      fullMark: 100,
+    },
+  ];
 
   return (
     <Content

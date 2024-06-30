@@ -47,19 +47,24 @@ export default function Component({ currentUser }) {
           )}
         >
           {currentUser ? (
-            <Dropdown.Item
-              onClick={() => {
-                logout().then((res) => {
-                  toast.success("로그아웃 되었습니다.", {
-                    onClose: () => {
-                      window.location.href = "/";
-                    },
+            <>
+              <Dropdown.Item onClick={() => router.push("/subscribe")}>
+                구독하기
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => {
+                  logout().then((res) => {
+                    toast.success("로그아웃 되었습니다.", {
+                      onClose: () => {
+                        window.location.href = "/";
+                      },
+                    });
                   });
-                });
-              }}
-            >
-              로그아웃
-            </Dropdown.Item>
+                }}
+              >
+                로그아웃
+              </Dropdown.Item>
+            </>
           ) : (
             <>
               <Dropdown.Item onClick={() => router.push("/login")}>
@@ -68,9 +73,6 @@ export default function Component({ currentUser }) {
             </>
           )}
 
-          <Dropdown.Item onClick={() => router.push("/subscribe")}>
-            구독하기
-          </Dropdown.Item>
           {currentUser && currentUser.role == "parents" && (
             <>
               <Dropdown.Item
