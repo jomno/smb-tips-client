@@ -1,6 +1,17 @@
 import Content from "./Content";
+import { fetcher } from "@/utils/fetcher";
+import { cookies } from "next/headers";
 
-export default async function Page({ searchParams }) {
+async function getVideo(id) {
+  const res = await fetcher(`/videos/${id}`, cookies());
+
+  if (!res.ok) {
+    return null;
+  }
+  return res.json();
+}
+
+export default async function Page({ params, searchParams }) {
   const classBanners = [
     {
       id: 1,
@@ -51,5 +62,17 @@ export default async function Page({ searchParams }) {
       is_publish: true,
     },
   ];
-  return <Content classBanners={classBanners} />;
+
+  const { id } = params;
+  const video = await getVideo(id);
+
+  if (!video) {
+    return <div>
+      <h1>Video not found</h1>
+
+      <a href="/">처음으로 돌아가기</a>
+    </div>;
+  }
+
+  return <Content classBanners={classBanners} video={video} />;
 }
