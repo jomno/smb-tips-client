@@ -66,15 +66,15 @@ export default function Content() {
         <div className="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <div className="flex flex-col items-center">
             <p className="text-[55px] my-2">👍</p>
-            <h5 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">
+            <h5 className="mb-1 text-xl font-bold text-gray-900 dark:text-white">
               나이스 잡, 솜이맘 님!
             </h5>
 
-            <span class="mt-1 bg-gray-100 text-black text-xs font-bold inline-flex items-center px-2.5 py-0.5 rounded-full me-2 dark:bg-gray-700 dark:text-gray-400 border border-gray-500 ">
-              <FaFire class="text-red-500 me-1" />
+            <span className="mt-1 bg-gray-100 text-black text-xs font-bold inline-flex items-center px-2.5 py-0.5 rounded-full me-2 dark:bg-gray-700 dark:text-gray-400 border border-gray-500 ">
+              <FaFire className="text-red-500 me-1" />
               27일 연속 공부 중
             </span>
-            <div class="mt-4 mb-8 grid grid-cols-3 w-64">
+            <div className="mt-4 mb-8 grid grid-cols-3 w-64">
               <div className="flex flex-col items-center">
                 <PiVideoFill className="text-4xl text-purple-500" />
                 <p className="font-bold">10</p>

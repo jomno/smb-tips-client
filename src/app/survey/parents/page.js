@@ -1,6 +1,44 @@
 import Content from "./Content";
+import { fetcher } from "@/utils/fetcher";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
+async function getCurrentUser() {
+  const res = await fetcher("/current_user", cookies());
+
+  if (!res.ok) {
+    return null;
+  }
+  return res.json();
+}
+
+async function getParentsSurvey() {
+  const res = await fetcher("/current_user/parents_survey", cookies());
+
+  if (!res.ok) {
+    return null;
+  }
+  return res.json();
+}
 
 export default async function Page({ searchParams }) {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect("/login?msg=로그인이 필요합니다.");
+    return null;
+  } else if (user.role !== "parent") {
+    redirect("/?msg=role_child");
+    return null;
+  }
+
+  const survey = await getParentsSurvey();
+
+  if (survey) {
+    redirect("/?msg=survey_already_submitted");
+    return null;
+  }
+
   const categories = {
     basic: {
       label: "기초 영역",

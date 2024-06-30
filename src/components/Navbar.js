@@ -1,11 +1,14 @@
 "use client";
 
-import MenuIcon from "@public/icons/menu.svg"
+import MenuIcon from "@public/icons/menu.svg";
 import { Dropdown } from "flowbite-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function Component() {
+import { logout } from "@/utils/api";
+import { toast } from "react-toastify";
+
+export default function Component({ currentUser }) {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -43,9 +46,28 @@ export default function Component() {
             </div>
           )}
         >
-          <Dropdown.Item onClick={() => alert("로그인/회원가입")}>
-            로그인/회원가입
-          </Dropdown.Item>
+          {currentUser ? (
+            <Dropdown.Item
+              onClick={() => {
+                logout().then((res) => {
+                  toast.success("로그아웃 되었습니다.", {
+                    onClose: () => {
+                      window.location.href = "/";
+                    },
+                  });
+                });
+              }}
+            >
+              로그아웃
+            </Dropdown.Item>
+          ) : (
+            <>
+              <Dropdown.Item onClick={() => router.push("/login")}>
+                로그인/회원가입
+              </Dropdown.Item>
+            </>
+          )}
+
           <Dropdown.Item onClick={() => alert("구독하기")}>
             구독하기
           </Dropdown.Item>
@@ -58,7 +80,7 @@ export default function Component() {
           </Dropdown.Item>
           <Dropdown.Item
             onClick={() => {
-              router.push("/survey/children");
+              router.push("/survey/child");
             }}
           >
             설문조사 - 아이
