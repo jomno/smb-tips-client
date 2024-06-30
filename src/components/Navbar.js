@@ -71,34 +71,44 @@ export default function Component({ currentUser }) {
           <Dropdown.Item onClick={() => router.push("/subscribe")}>
             구독하기
           </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() => {
-              router.push("/survey/parents");
-            }}
-          >
-            설문조사 - 부모
-          </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() => {
-              router.push("/survey/child");
-            }}
-          >
-            설문조사 - 아이
-          </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() => {
-              router.push("/mypage/parents");
-            }}
-          >
-            마이페이지 - 부모
-          </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() => {
-              router.push("/mypage/children");
-            }}
-          >
-            마이페이지 - 아이
-          </Dropdown.Item>
+          {currentUser && currentUser.role == "parents" && (
+            <>
+              <Dropdown.Item
+                onClick={() => {
+                  router.push("/survey/parents");
+                }}
+              >
+                설문조사
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => {
+                  router.push("/mypage/parents");
+                }}
+              >
+                마이페이지
+              </Dropdown.Item>
+            </>
+          )}
+
+          {currentUser && currentUser.role == "child" && (
+            <>
+              <Dropdown.Item
+                onClick={() => {
+                  router.push("/survey/child");
+                }}
+              >
+                설문조사
+              </Dropdown.Item>
+
+              <Dropdown.Item
+                onClick={() => {
+                  router.push("/mypage/children");
+                }}
+              >
+                마이페이지
+              </Dropdown.Item>
+            </>
+          )}
         </Dropdown>
       </div>
     </nav>
