@@ -68,7 +68,7 @@ export default function Component({ currentUser }) {
             </>
           )}
 
-          <Dropdown.Item onClick={() => alert("구독하기")}>
+          <Dropdown.Item onClick={() => router.push("/subscribe")}>
             구독하기
           </Dropdown.Item>
           <Dropdown.Item
