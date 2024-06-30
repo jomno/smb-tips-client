@@ -27,7 +27,7 @@ export default async function Page({ searchParams }) {
   if (!user) {
     redirect("/login?msg=로그인이 필요합니다.");
     return null;
-  } else if (user.role !== "parent") {
+  } else if (user.role !== "parents") {
     redirect("/?msg=role_child");
     return null;
   }
