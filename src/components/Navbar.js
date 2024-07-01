@@ -77,14 +77,7 @@ export default function Component({ currentUser }) {
             <>
               <Dropdown.Item
                 onClick={() => {
-                  router.push("/survey/parents");
-                }}
-              >
-                설문조사
-              </Dropdown.Item>
-              <Dropdown.Item
-                onClick={() => {
-                  router.push("/mypage/parents");
+                  location.href = "/mypage/parents";
                 }}
               >
                 마이페이지
@@ -96,15 +89,7 @@ export default function Component({ currentUser }) {
             <>
               <Dropdown.Item
                 onClick={() => {
-                  router.push("/survey/child");
-                }}
-              >
-                설문조사
-              </Dropdown.Item>
-
-              <Dropdown.Item
-                onClick={() => {
-                  router.push("/mypage/children");
+                  location.href = "/mypage/children";
                 }}
               >
                 마이페이지

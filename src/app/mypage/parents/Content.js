@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import { useEffect, useState } from "react";
+import dayjs from "dayjs";
 
 import ClassBanner from "@/components/ClassBanner";
 import {
@@ -29,44 +30,20 @@ export default function Content({
 }) {
   // const initialTheme = localStorage?.getItem("theme") || "light";
 
-  const data04 = [
-    {
-      subject: "Math",
-      A: 120,
-      B: 110,
-      fullMark: 150,
-    },
-    {
-      subject: "Chinese",
-      A: 98,
-      B: 130,
-      fullMark: 150,
-    },
-    {
-      subject: "English",
-      A: 86,
-      B: 130,
-      fullMark: 150,
-    },
-    {
-      subject: "Geography",
-      A: 99,
-      B: 100,
-      fullMark: 150,
-    },
-    {
-      subject: "Physics",
-      A: 85,
-      B: 90,
-      fullMark: 150,
-    },
-    {
-      subject: "History",
-      A: 65,
-      B: 85,
-      fullMark: 150,
-    },
-  ];
+  const [theme, setTheme] = useState(
+    isCreatedAtOlderThanOneMonth(user) ? "enough" : "not-enough"
+  );
+
+  function isCreatedAtOlderThanOneMonth(user) {
+    const currentDate = dayjs();
+    const createdAt = dayjs(user.created_at);
+
+    const monthDifference = currentDate.diff(createdAt, "month");
+
+    console.log("monthDifference", monthDifference);
+
+    return monthDifference >= 1;
+  }
 
   const renderCustomizedLabel = ({
     cx,
@@ -117,50 +94,57 @@ export default function Content({
       <div>
         <h1 className="text-xl font-bold">
           {new Date().getMonth() + 1}월{" "}
-          <span className="text-blue-700">승우</span>의 영역별 선호도 분포
+          <span className="text-blue-700">자녀</span>의 영역별 선호도 분포
         </h1>
         <div className="flex flex-col items-center justify-center">
-          <PieChart width={600} height={400}>
-            <Pie
-              data={data01}
-              dataKey="value"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              outerRadius={80}
-              label={renderCustomizedLabel}
-              labelLine={false}
-            >
-              {data01.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color}>
-                  {entry.name}
-                </Cell>
-              ))}
-            </Pie>
-            <Pie
-              data={data02}
-              dataKey="value"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              innerRadius={75}
-              outerRadius={150}
-              label={(entry) => entry.name}
-            >
-              {data02.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
-            </Pie>
-          </PieChart>
+          {theme === "enough" ? (
+            <PieChart width={600} height={400}>
+              <Pie
+                data={data01}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={80}
+                label={renderCustomizedLabel}
+                labelLine={false}
+              >
+                {data01.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color}>
+                    {entry.name}
+                  </Cell>
+                ))}
+              </Pie>
+              <Pie
+                data={data02}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                innerRadius={75}
+                outerRadius={150}
+                label={(entry) => entry.name}
+              >
+                {data02.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+            </PieChart>
+          ) : (
+            <div className="p-4 mt-4 bg-red-500 rounded">
+              <p className="text-white">현재 자녀의 선호도 데이터가 부족합니다.</p>
+            </div>
+          )}
         </div>
       </div>
 
       <div>
         <h1 className="text-xl font-bold">
-          전월 대비 <span className="text-blue-700">승우</span>의 선호도 변화
+          전월 대비 <span className="text-blue-700">자녀</span>의 선호도 변화
         </h1>
         <div className="flex flex-col items-center justify-center">
-          <RadarChart
+          {
+            theme === "enough" ? (<RadarChart
             width={600}
             height={500}
             cx="50%"
@@ -186,7 +170,13 @@ export default function Content({
               fillOpacity={0.6}
             />
             <Legend />
-          </RadarChart>
+          </RadarChart>) : (
+            <div className="p-4 mt-4 bg-red-500 rounded">
+              <p className="text-white">현재 자녀의 선호도 데이터가 부족합니다.</p>
+            </div>
+          )
+          }
+          
         </div>
       </div>
       <div>
