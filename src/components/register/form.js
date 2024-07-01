@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 
 import { DefaultTextInput, DefaultAvatarInput } from "@/components/inputs";
 import SubmitButton from "../SubmitButton";
+import { Label, Radio } from "flowbite-react";
 
 import { useRef } from "react";
 
@@ -20,6 +21,7 @@ const Form = ({ role }) => {
       password: "",
       password_confirmation: "",
       name: "",
+      gender: "female",
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -38,6 +40,7 @@ const Form = ({ role }) => {
       );
       formData.append("user[name]", values.name);
       formData.append("user[role]", role);
+      formData.append("user[gender]", values.gender);
 
       register(formData)
         .then((res) => {
@@ -76,11 +79,7 @@ const Form = ({ role }) => {
       className="flex flex-col max-w-md gap-4"
       onSubmit={formik.handleSubmit}
     >
-      <DefaultTextInput
-        labelName="이메일"
-        name="email"
-        formik={formik}
-      />
+      <DefaultTextInput labelName="이메일" name="email" formik={formik} />
 
       <DefaultTextInput
         labelName="비밀번호"
@@ -97,6 +96,29 @@ const Form = ({ role }) => {
       />
 
       <DefaultTextInput labelName="이름" name="name" formik={formik} />
+
+      <fieldset className="flex flex-col max-w-md gap-4">
+        <legend className="mb-4">성별</legend>
+        <div className="flex items-center gap-2">
+          <Radio
+            id="female"
+            name="gender"
+            value="female"
+            defaultChecked
+            onChange={formik.handleChange}
+          />
+          <Label htmlFor="female">여성</Label>
+        </div>
+        <div className="flex items-center gap-2">
+          <Radio
+            id="male"
+            name="gender"
+            value="male"
+            onChange={formik.handleChange}
+          />
+          <Label htmlFor="male">남성</Label>
+        </div>
+      </fieldset>
 
       <SubmitButton
         formik={formik}
