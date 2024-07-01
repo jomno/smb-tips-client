@@ -38,7 +38,9 @@ export default function Content({ user, classBanners }) {
             <div className="grid w-64 grid-cols-3 mt-4 mb-8">
               <div className="flex flex-col items-center">
                 <PiVideoFill className="text-4xl text-purple-500" />
-                <p className="font-bold">{2}</p>
+                <p className="font-bold">
+                  {getDaysPassedSinceCreation(user) > 0 ? 2 : 0}
+                </p>
               </div>
 
               <div className="flex flex-col items-center">
@@ -48,7 +50,9 @@ export default function Content({ user, classBanners }) {
 
               <div className="flex flex-col items-center">
                 <MdCategory className="text-4xl text-green-500" />
-                <p className="font-bold">{3}</p>
+                <p className="font-bold">
+                  {getDaysPassedSinceCreation(user) > 0 ? 4 : 0}
+                </p>
               </div>
             </div>
           </div>
