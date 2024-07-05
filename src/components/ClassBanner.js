@@ -9,7 +9,7 @@ import { SwiperNextBtn } from "./SwiperNextBtn";
 import { SwiperPrevBtn } from "./SwiperPrevBtn";
 import "./mainbanner.css";
 
-export default function ClassBanner({ classBanners }) {
+export default function ClassBanner({ videos }) {
   return (
     <Swiper
       autoplay={{
@@ -21,22 +21,20 @@ export default function ClassBanner({ classBanners }) {
       loop={true}
       navigation={true}
     >
-      {classBanners?.map((banner) => {
+      {videos?.map((video) => {
         return (
-          banner?.is_publish && (
-            <SwiperSlide
-              key={`강의배너_${banner?.id}`}
-              className="aspect-[98/113] mt-2 rounded-lg overflow-hidden"
-            >
-              <a href={banner?.link}>
-                <img
-                  src={banner?.url || ""}
-                  alt="banner"
-                  className="object-cover w-full h-full"
-                />
-              </a>
-            </SwiperSlide>
-          )
+          <SwiperSlide
+            key={`강의배너_${video?.id}`}
+            className="aspect-[98/113] mt-2 rounded-lg overflow-hidden"
+          >
+            <a href={`/videos/${video.id}`}>
+              <img
+                src={video?.thumbnail_url || ""}
+                alt="banner"
+                className="object-cover w-full h-full"
+              />
+            </a>
+          </SwiperSlide>
         );
       })}
       <SwiperPrevBtn />

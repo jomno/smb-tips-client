@@ -11,7 +11,7 @@ import { sampleSize } from "lodash";
 
 import dayjs from "dayjs";
 
-export default function Content({ user, classBanners }) {
+export default function Content({ user, videos, recommendVideos }) {
   function getDaysPassedSinceCreation(user) {
     const currentDate = dayjs();
     const createdAt = dayjs(user.created_at);
@@ -62,13 +62,13 @@ export default function Content({ user, classBanners }) {
       <div>
         <h1 className="text-xl font-bold">추천 클래스</h1>
 
-        <ClassBanner classBanners={sampleSize(classBanners, 2)} />
+        <ClassBanner videos={recommendVideos} />
       </div>
 
       <div>
         <h1 className="text-xl font-bold">수강 중인 클래스</h1>
 
-        <ClassBanner classBanners={sampleSize(classBanners, 2)} />
+        <ClassBanner videos={videos} />
       </div>
     </div>
   );

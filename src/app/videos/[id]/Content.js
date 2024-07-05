@@ -4,7 +4,7 @@ import ReactPlayer from "react-player";
 import ClassBanner from "@/components/ClassBanner";
 import { sampleSize } from "lodash";
 
-export default function Content({ classBanners, video }) {
+export default function Content({ video, recommendVideos }) {
   // const initialTheme = localStorage?.getItem("theme") || "light";
   return (
     <div className="flex flex-col">
@@ -26,7 +26,7 @@ export default function Content({ classBanners, video }) {
           <span className="text-[#00a2d0]">추천 클래스</span>
         </h1>
 
-        <ClassBanner classBanners={sampleSize(classBanners, 3)} />
+        <ClassBanner videos={recommendVideos} />
       </div>
     </div>
   );

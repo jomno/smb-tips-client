@@ -7,7 +7,7 @@ import ClassBanner from "@/components/ClassBanner";
 
 import { sampleSize } from "lodash";
 
-export default function Home({ currentUser, mainBanners, classBanners }) {
+export default function Home({ currentUser, mainBanners, videos, recommendVideos }) {
   const initialTheme = localStorage?.getItem("theme") || "light";
 
   return (
@@ -23,7 +23,7 @@ export default function Home({ currentUser, mainBanners, classBanners }) {
                 추천 클래스
               </h1>
 
-              <ClassBanner classBanners={sampleSize(classBanners, 3)} />
+              <ClassBanner videos={recommendVideos} />
             </div>
 
             <div>
@@ -32,14 +32,14 @@ export default function Home({ currentUser, mainBanners, classBanners }) {
                 시청 클래스
               </h1>
 
-              <ClassBanner classBanners={sampleSize(classBanners, 3)} />
+              <ClassBanner videos={videos} />
             </div>
           </>
         ) : (
           <div>
             <h1 className="mt-4 text-xl font-bold">스몰빅 오리지널 클래스</h1>
 
-            <ClassBanner classBanners={sampleSize(classBanners, 3)} />
+            <ClassBanner videos={videos} />
           </div>
         )}
 
@@ -48,16 +48,7 @@ export default function Home({ currentUser, mainBanners, classBanners }) {
             SMALLBIG <span className="text-red-600">TOP5</span> CLASS
           </h1>
 
-          <ClassBanner classBanners={sampleSize(classBanners, 3)} />
-        </div>
-
-        <div>
-          <h1 className="text-xl font-bold">
-            스몰빅 오리지널 <span className="text-base">with</span>{" "}
-            <span className="">{currentUser?.role_name}님</span>
-          </h1>
-
-          <ClassBanner classBanners={sampleSize(classBanners, 3)} />
+          <ClassBanner videos={videos} />
         </div>
       </div>
     </div>

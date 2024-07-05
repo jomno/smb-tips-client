@@ -132,7 +132,9 @@ export default function Content({
             </PieChart>
           ) : (
             <div className="p-4 mt-4 bg-red-500 rounded">
-              <p className="text-white">현재 자녀의 선호도 데이터가 부족합니다.</p>
+              <p className="text-white">
+                현재 자녀의 선호도 데이터가 부족합니다.
+              </p>
             </div>
           )}
         </div>
@@ -143,51 +145,52 @@ export default function Content({
           전월 대비 <span className="text-blue-700">자녀</span>의 선호도 변화
         </h1>
         <div className="flex flex-col items-center justify-center">
-          {
-            theme === "enough" ? (<RadarChart
-            width={600}
-            height={500}
-            cx="50%"
-            cy="50%"
-            outerRadius="80%"
-            data={data03}
-          >
-            <PolarGrid />
-            <PolarAngleAxis dataKey="subject" />
-            <PolarRadiusAxis angle={30} domain={[0, 100]} />
-            <Radar
-              name={`${new Date().getMonth()}월`}
-              dataKey="A"
-              stroke="#8884d8"
-              fill="#8884d8"
-              fillOpacity={0.6}
-            />
-            <Radar
-              name={`${new Date().getMonth() + 1}월`}
-              dataKey="B"
-              stroke="#82ca9d"
-              fill="#82ca9d"
-              fillOpacity={0.6}
-            />
-            <Legend />
-          </RadarChart>) : (
+          {theme === "enough" ? (
+            <RadarChart
+              width={600}
+              height={500}
+              cx="50%"
+              cy="50%"
+              outerRadius="80%"
+              data={data03}
+            >
+              <PolarGrid />
+              <PolarAngleAxis dataKey="subject" />
+              <PolarRadiusAxis angle={30} domain={[0, 100]} />
+              <Radar
+                name={`${new Date().getMonth()}월`}
+                dataKey="A"
+                stroke="#8884d8"
+                fill="#8884d8"
+                fillOpacity={0.6}
+              />
+              <Radar
+                name={`${new Date().getMonth() + 1}월`}
+                dataKey="B"
+                stroke="#82ca9d"
+                fill="#82ca9d"
+                fillOpacity={0.6}
+              />
+              <Legend />
+            </RadarChart>
+          ) : (
             <div className="p-4 mt-4 bg-red-500 rounded">
-              <p className="text-white">현재 자녀의 선호도 데이터가 부족합니다.</p>
+              <p className="text-white">
+                현재 자녀의 선호도 데이터가 부족합니다.
+              </p>
             </div>
-          )
-          }
-          
+          )}
         </div>
       </div>
       <div>
         <h1 className="text-xl font-bold">추천 클래스</h1>
 
-        <ClassBanner classBanners={recommendClass} />
+        <ClassBanner videos={recommendClass} />
       </div>
       <div>
         <h1 className="text-xl font-bold">수강 중인 클래스</h1>
 
-        <ClassBanner classBanners={watchingClass} />
+        <ClassBanner videos={watchingClass} />
       </div>
     </div>
   );
